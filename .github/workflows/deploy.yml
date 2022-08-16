@@ -1,6 +1,6 @@
 name: Deployment demo
 on:
-  pull_requests:
+  pull_request:
     types:
       - closed
     branches:
