@@ -24,7 +24,7 @@ jobs:
           role-session-name: githubaction
       - name: Login to ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecs-login@v1
+        uses: aws-actions/amazon-ecr-login@v1
       - name: Build tag and push image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
