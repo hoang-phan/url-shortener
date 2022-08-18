@@ -13,8 +13,8 @@ RUN useradd --system --gid $GROUP --create-home $USER
 RUN mkdir $APP_DIR && chown -R $USER:$GROUP $APP_DIR
 RUN gem install bundler --no-document --version $BUNDLER_VERSION
 
-USER $USER
 WORKDIR $APP_DIR
+USER $USER
 
 COPY --chown=$USER:$GROUP . .
 
@@ -27,6 +27,5 @@ RUN bundle config set frozen 1 \
     && find gems/ -name '*.c' -delete \
     && find gems/ -name '*.o' -delete
 
-EXPOSE 3000
-
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+COPY entrypoint.sh /usr/bin
+ENTRYPOINT ["entrypoint.sh"]
