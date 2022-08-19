@@ -22,7 +22,7 @@ jobs:
       - name: Configure AWS credentials from Test account
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::421736311596:role/EcrRoleCdkStack-ApplicationDeployerRoleA9F8749A-15QHN072OSS0K
+          role-to-assume: arn:aws:iam::421736311596:role/EcrRoleCdkStack-ApplicationDeployerRoleA9F8749A-1PF1Y54APQ6FA
           aws-region: ap-southeast-2
           role-session-name: githubaction
       - name: Login to ECR

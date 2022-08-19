@@ -3,5 +3,7 @@ Rails.application.routes.draw do
     resources :urls
   end
 
+  resources :tests, only: :index
+
   match ":shortened", to: "urls#show", via: :get
 end

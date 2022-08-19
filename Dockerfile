@@ -16,7 +16,7 @@ RUN gem install bundler --no-document --version $BUNDLER_VERSION
 WORKDIR $APP_DIR
 USER $USER
 
-COPY --chown=$USER:$GROUP . .
+COPY --chown=$USER:$GROUP Gemfile Gemfile.lock ./
 
 RUN bundle config set frozen 1 \
     && bundle config deployment 'true' \
@@ -27,5 +27,6 @@ RUN bundle config set frozen 1 \
     && find gems/ -name '*.c' -delete \
     && find gems/ -name '*.o' -delete
 
-COPY entrypoint.sh /usr/bin
-ENTRYPOINT ["entrypoint.sh"]
+COPY --chown=$USER:$GROUP . .
+
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
