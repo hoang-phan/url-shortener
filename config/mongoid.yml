@@ -3,7 +3,7 @@ production:
     # Defines the default client. (required)
     default:
       # Mongoid can connect to a URI accepted by the driver:
-      uri: mongodb+srv://hoang:hoang@urlshortenercluster.sosy6oe.mongodb.net/url_shortener?retryWrites=true&w=majority
+      uri: <%= ENV['MONGOID_URL'] %>
 
 development:
   # Configure available database clients. (required)
