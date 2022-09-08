@@ -58,7 +58,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "url_shortener_production"
 
   config.action_controller.perform_caching = true
-  config.cache_store = :redis_store
+  config.cache_store = :redis_store, ENV['REDIS_URL']
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

@@ -13,22 +13,13 @@ module V1
       @url = Url.new
     end
 
-    def edit
-    end
-
     def create
       @url = Url.new(url_params)
+      UrlBuilder.new(@url).build
 
       if @url.save
+        UrlCacheService.new(@url.shortened).write(@url.full_url)
         render :show, status: :created
-      else
-        render json: @url.errors, status: :unprocessable_entity
-      end
-    end
-
-    def update
-      if @url.update(url_params)
-        render :show, status: :ok
       else
         render json: @url.errors, status: :unprocessable_entity
       end
@@ -36,6 +27,7 @@ module V1
 
     def destroy
       @url.destroy
+      UrlCacheService.new(@url.shortened).write(@url.full_url)
       head :no_content
     end
 
