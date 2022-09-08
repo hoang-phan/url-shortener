@@ -1,0 +1,102 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - redis
+    #   - db
+    # links:
+    #   - db
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - gemdata:/bundle
+    environment:
+      RAILS_ENV: development
+    extra_hosts:
+      - mongohost:172.17.0.1
+  redis:
+    image: redis:5.0.7
+
+  # # MongoDB
+  # configsvr1:
+  #   image: mongo:latest
+  #   command: mongod --configsvr --port 27100 --replSet rs0 --bind_ip=0.0.0.0
+  #   ports:
+  #     - "27100:27100"
+  #   volumes:
+  #     - ./scripts:/scripts
+  #   links:
+  #     - configsvr2
+  # configsvr2:
+  #   image: mongo:latest
+  #   command: mongod --configsvr --port 27101 --replSet rs0 --bind_ip=0.0.0.0
+  #   ports:
+  #     - "27101:27101"
+  #   volumes:
+  #     - ./scripts:/scripts
+  # configsvr3:
+  #   image: mongo:latest
+  #   command: mongod --configsvr --port 27102 --replSet rs0 --bind_ip=0.0.0.0
+  #   ports:
+  #     - "27102:27102"
+  #   volumes:
+  #     - ./scripts:/scripts
+  # sharda1:
+  #   image: mongo:latest
+  #   command: mongod --shardsvr --port 27103 --replSet a --bind_ip=0.0.0.0
+  #   ports:
+  #     - "27103:27103"
+  #   volumes:
+  #     - ./scripts:/scripts
+  # sharda2:
+  #   image: mongo:latest
+  #   command: mongod --shardsvr --port 27104 --replSet a --bind_ip=0.0.0.0
+  #   ports:
+  #     - "27104:27104"
+  #   volumes:
+  #     - ./scripts:/scripts
+  # sharda3:
+  #   image: mongo:latest
+  #   command: mongod --shardsvr --port 27105 --replSet a --bind_ip=0.0.0.0
+  #   ports:
+  #     - "27105:27105"
+  #   volumes:
+  #     - ./scripts:/scripts
+  # shardb1:
+  #   image: mongo:latest
+  #   command: mongod --shardsvr --port 27106 --replSet b --bind_ip=0.0.0.0
+  #   ports:
+  #     - "27106:27106"
+  #   volumes:
+  #     - ./scripts:/scripts
+  # shardb2:
+  #   image: mongo:latest
+  #   command: mongod --shardsvr --port 27107 --replSet b --bind_ip=0.0.0.0
+  #   ports:
+  #     - "27107:27107"
+  #   volumes:
+  #     - ./scripts:/scripts
+  # shardb3:
+  #   image: mongo:latest
+  #   command: mongod --shardsvr --port 27108 --replSet b --bind_ip=0.0.0.0
+  #   ports:
+  #     - "27108:27108"
+  #   volumes:
+  #     - ./scripts:/scripts
+  # db:
+  #   image: mongo:latest
+  #   ports:
+  #     - "27018:27018"
+  #   entrypoint: /scripts/config.sh
+  #   volumes:
+  #     - ./scripts:/scripts
+  #   depends_on:
+  #     - configsvr1
+  #     - configsvr2
+  #     - configsvr3
+volumes:
+  gemdata:
